@@ -1,0 +1,57 @@
+%! Author = chiel
+%! Date = 10-02-20
+
+% Preamble
+\documentclass[11pt]{article}
+
+\title{Implementatieplan Practicum Week 1}
+\author{Chiel Douwes}
+
+% Document
+\begin{document}
+
+    \maketitle
+
+
+    \section{Doel}\label{sec:doel}
+    % Geef aan wat het doel van de implementatie is.
+    De geimplementeerde klasse moet een interface geven die het mogelijk maakt om in een image te
+    lezen en te schrijven.
+
+
+    \section{Methoden}\label{sec:methoden}
+    % Je geeft hier aan welke methoden er zijn, wat de verschillende tussen de methodes zijn.
+    Er zijn enkele methoden die gebruikt kunnen worden:
+    \begin{itemize}
+        \item Fixed-size array: De simpelste implementatie, met een vaste hoogte en breedte.
+        \item Sparse array: Een array die stukken kan bevatten die niet gealloceerd zijn.
+        \item Dynamic array: Een array die naar vraag groter of klijner kan worden gemaakt.
+    \end{itemize}
+
+
+    \section{Keuze}\label{sec:keuze}
+    % Je geeft een onderbouwing over waarom een bepaalde methode is gekozen,
+    % en/of waarom bepaalde settings zijn gebruikt.
+    De keuze wordt gemaakt om een fixed-size array te implementeren, mits dit de snelste array
+    access oplevert en ook een correcte implementatie gemakkelijk te verifiëren is.
+
+
+    \section{Implementatie}\label{sec:implementatie}
+    % Je geeft aan hoe deze keuze is geimplementeerd in de code
+    Het fixed-size array is geïmplementeerd door een type te maken met vaste hoogte en breedte
+    parameters, zodat de access instructies in compile time geoptimalizeerd kunnen worden
+    doormiddel van SIMD. Het type heeft als een van de variabelen de data van de image. Er zullen
+    enige functies zijn die bepaalde pixels kunnen zetten of getten, met zo nodig boundary checks
+    for out of bounds condities.
+
+
+    \section{Evaluatie}\label{sec:evaluatie}
+    % Je geeft aan welke experimenten er gedaan zullen worden om de implementatie
+    % te testen en te ‘bewijzen’ dat de implementatie daadwerkelijk correct werkt.
+    % Dit geeft direct informatie over de meetrapporten die er zullen worden gemaakt.
+    De experimenten die uitgevoerd kunnen worden zijn onder anderen tests om de correctness van
+    de implementatie te testen, zoals out of bounds checks en andere edge cases, en er kunnen
+    tests gemaakt worden om de performance van de pixel update methodes te testen.
+
+
+\end{document}
