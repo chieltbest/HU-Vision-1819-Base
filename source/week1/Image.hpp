@@ -4,11 +4,14 @@
 
 #pragma once // VISION_IMAGE_HPP
 
+#include <array>
+#include <type_traits>
+
 /// An n-dimensional image, consisting of a contiguous array of 'Colour's
-template <typename Colour, unsigned... Dimensions>
+template <typename Colour, unsigned BaseDimension, unsigned... Dimensions>
 class Image {
 private:
-	constexpr static total_elems = Dimensions * ...;
+	constexpr static unsigned total_elems = BaseDimension * (Dimensions * ... * 1);
 
 	Colour data[total_elems];
 
@@ -16,14 +19,15 @@ public:
 	Image() : data{} {
 	}
 
-	template <typename Colour>
-	Image(Colour &&data[]) : data{data} {
+	template <typename ColourT>
+	explicit Image(ColourT(&&data)[]) : data{data} {
 	}
 
-	Image(Colour &&data[total_elems]) : data{data} {
+	template <typename ColourT>
+	explicit Image(ColourT(&&data)[total_elems]) : data{data} {
 	}
 
-	template <typename Container>
-	Image(Container &&data) : data{data} {
-	}
+	/// SFINAE-d constructor for std containers with a .data() function
+	template <typename Container, typename = decltype(std::declval<Container>().data())>
+	explicit Image(Container &&data) : data{data.data()} {};
 };
