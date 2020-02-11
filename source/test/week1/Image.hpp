@@ -8,6 +8,6 @@
 
 bool test_image() {
 	// construct the image object
-	Image<int, 1> image{};
+	Image<int, 1>{};
 	return true;
 }
