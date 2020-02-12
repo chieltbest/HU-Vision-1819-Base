@@ -30,4 +30,9 @@ public:
 	/// SFINAE-d constructor for std containers with a .data() function
 	template <typename Container, typename = decltype(std::declval<Container>().data())>
 	explicit Image(Container &&data) : data{data.data()} {};
+
+	/// convert from other image type
+	template <typename OtherColourType, unsigned... OtherDimensions>
+	explicit Image(Image<OtherColourType, OtherDimensions...> &&image) : Image(image.data) {
+	}
 };
