@@ -8,6 +8,7 @@
 
 bool test_image() {
 	// construct the image object
-	Image<int, 1>{};
+	Image<char, 10, 10> image{};
+	image.get(1, 2) = 1;
 	return true;
 }

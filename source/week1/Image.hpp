@@ -15,6 +15,16 @@ private:
 
 	Colour data[total_elems];
 
+	template <unsigned D, unsigned... Ds, typename Num1, typename... Num>
+	unsigned calc_index(unsigned mult, Num1 i, Num... ints) {
+		return (mult * i) + calc_index<Ds...>(mult * D, ints...);
+	}
+
+	template <unsigned... Ds>
+	unsigned calc_index(unsigned mult) {
+		return 0;
+	}
+
 public:
 	Image() : data{} {
 	}
@@ -34,5 +44,10 @@ public:
 	/// convert from other image type
 	template <typename OtherColourType, unsigned... OtherDimensions>
 	explicit Image(Image<OtherColourType, OtherDimensions...> &&image) : Image(image.data) {
+	}
+
+	template <typename... Nums>
+	std::enable_if_t<sizeof...(Nums) == sizeof...(Dimensions) + 1, Colour &> get(Nums... nums) {
+		return data[calc_index<BaseDimension, Dimensions...>(1, nums...)];
 	}
 };
