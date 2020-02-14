@@ -12,3 +12,8 @@ option(BUILD_TESTING OFF)
 if (BUILD_TESTING)
 	add_subdirectory(source/test)
 endif ()
+
+option(BUILD_BENCHMARK OFF)
+if (BUILD_BENCHMARK)
+	add_subdirectory(source/benchmark)
+endif ()
