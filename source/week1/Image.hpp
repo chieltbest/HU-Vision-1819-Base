@@ -7,11 +7,13 @@
 #include <array>
 #include <type_traits>
 
+#include "policy/Null.hpp"
+
 /// An n-dimensional image, consisting of a contiguous array of 'Colour's
-template <typename Colour, unsigned BaseDimension, unsigned... Dimensions>
+template <typename Colour, unsigned... Dimensions>
 class Image {
 private:
-	constexpr static unsigned total_elems = BaseDimension * (Dimensions * ... * 1);
+	constexpr static unsigned total_elems = (Dimensions * ... * 1);
 
 	Colour data[total_elems];
 
@@ -21,8 +23,13 @@ private:
 	}
 
 	template <unsigned... Ds>
-	unsigned calc_index(unsigned mult) {
+	unsigned calc_index(unsigned) {
 		return 0;
+	}
+
+	template <typename... Ts>
+	bool any(Ts... bools) {
+		return (false || ... || bools);
 	}
 
 public:
@@ -46,8 +53,21 @@ public:
 	explicit Image(Image<OtherColourType, OtherDimensions...> &&image) : Image(image.data) {
 	}
 
+	template <typename OutOfIndexPolicy, typename... Nums>
+	std::enable_if_t<sizeof...(Nums) == sizeof...(Dimensions), Colour &>
+	get(OutOfIndexPolicy &&policy, Nums... nums) {
+		if (any(((nums < 0) || (unsigned(nums) >= Dimensions))...)) {
+			if constexpr (std::is_convertible_v<decltype(policy(nums...)), Colour &>) {
+				return policy(nums...);
+			} else {
+				// if the policy returns void just execute it
+				policy(nums...);
+			}
+		}
+		return data[calc_index<Dimensions...>(1, nums...)];
+	}
 	template <typename... Nums>
-	std::enable_if_t<sizeof...(Nums) == sizeof...(Dimensions) + 1, Colour &> get(Nums... nums) {
-		return data[calc_index<BaseDimension, Dimensions...>(1, nums...)];
+	std::enable_if_t<sizeof...(Nums) == sizeof...(Dimensions), Colour &> get(Nums... nums) {
+		return get(NullPolicy{}, nums...);
 	}
 };
