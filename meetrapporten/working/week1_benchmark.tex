@@ -1,0 +1,73 @@
+%! Author = chiel
+%! Date = 10-02-20
+
+% Preamble
+\documentclass[11pt]{article}
+
+\title{Meetrapport Week 1 Benchmarks}
+\author{Chiel Douwes}
+
+% Document
+\begin{document}
+
+    \maketitle
+
+
+    \section{Doel}\label{sec:doel}
+    % Geef aan wat het doel van het experiment is, bijvoorbeeld in de vorm van een te controleren
+    % hypothese.
+    De code wordt gebenchmarkt om te verifiëren dat het binnen goede tijd een resultaat kan geven.
+
+
+    \section{Hypothese}\label{sec:hypothese}
+    % Voordat je aan de proef begint stel je een hypothese op;
+    % wat verwacht je dat het antwoord zal zijn op je onderzoeksvraag?
+    De benchmarks moeten binnen een redelijke tijd uit te voeren zijn nadat deze gecompileerd zijn.
+
+
+    \section{Werkwijze}\label{sec:werkwijze}
+    % Geef een korte beschrijving van het experiment.
+    % (Het overschrijven van de practicumhandleiding is niet nodig.) Maak indien nodig een
+    % tekening van de proefopstelling, waarin grootheden kunnen worden aangegeven.
+    Voor de benchmarks wordt een bestand aangemaakt met functies, en dit bestand wordt vervolgens
+    door clang gecompileerd met een optimalisatie level van -O3. Door het gebruik van std::chrono
+    kunnen de tijden met hoge precisie op genomen worden.
+    \linebreak
+    In de tests van deze benchmark zal een Image van 1000x1000 pixels aangemaakt worden, daarna
+    gevult met een patroon en vervolgens geconverteerd naar grayscale.
+
+
+    \section{Resultaten}\label{sec:resultaten}
+    % Geef de meetresultaten overzichtelijk weer in de vorm van een tabel en/of diagram.
+    \begin{itemize}
+        \item Image constructor: $\approx$ 1.5ms
+        \item Vullen van Image: $\approx$ 0.8ms
+        \item Converteren van Image naar grayscale: $\approx$ 6.5ms
+    \end{itemize}
+    Voor alle metingen wordt van een aantal metingen de minimum tijd genomen, sinds dit het de
+    meest betrouwbare tijd is zonder invloed van de linux scheduler.
+
+
+    \section{Verwerking}\label{sec:verwerking}
+    % Laat zien hoe je de meetresultaten verwerkt om een conclusie te kunnen trekken.
+    % Het is niet nodig om alle berekeningen op te schrijven, als je bijvoorbeeld maar laat zien
+    % welke formule(s) je gebruikt voor het verwerken van de meetresultaten en daar zo nodig één
+    % voorbeeldberekening aan toevoegt.
+    Alle tijden zijn binnen bruikbare waardes, wat het mogelijk maakt om of in realtime of om
+    grotere berekeningen te doen op de images.
+
+
+    \section{Conclusie}\label{sec:conclusie}
+    % Geef aan welke conclusie kan worden getrokken uit de verwerking van de meetresultaten.
+    De code voldoet aan de eisen die gesteld zijn aan de performance, en kan dus ook in andere
+    applicaties toe gepast worden.
+
+
+    \section{Evaluatie}\label{sec:evaluatie}
+    % Leg een verband tussen de getrokken conclusie en het doel van het experiment (en de hypothese).
+    % Ga daarbij ook in op bijvoorbeeld de meetonzekerheid als gevolg van de gebruikte
+    % meetmethoden of eventuele meetfouten.
+    De code is goed getest en de meetwaardes zijn met een marge van ongeveer \%10 goed toepasbaar
+    in vergelijkbare situaties in komende code.
+
+\end{document}
