@@ -86,27 +86,29 @@ bool DefaultExtraction::stepExtractEyes(const IntensityImage &image, FeatureMap 
 
 	delete SwifterThanTheMoonsSphere;
 
-	Feature featureLeftEye = Feature(Feature::FEATURE_EYE_LEFT_RECT);
+	Feature featureLeftEye  = Feature(Feature::FEATURE_EYE_LEFT_RECT);
 	Feature featureRightEye = Feature(Feature::FEATURE_EYE_RIGHT_RECT);
 
-	//Add the left eye rect
+	// Add the left eye rect
 	featureLeftEye.addPoint(Point2D<double>(leftEye.x, leftEye.y));
-	featureLeftEye.addPoint(Point2D<double>(leftEye.x + leftEye.width - 1, leftEye.y + leftEye.height - 1));
+	featureLeftEye.addPoint(
+	        Point2D<double>(leftEye.x + leftEye.width - 1, leftEye.y + leftEye.height - 1));
 
-	//Add the right eye rect
+	// Add the right eye rect
 	featureRightEye.addPoint(Point2D<double>(rightEye.x, rightEye.y));
-	featureRightEye.addPoint(Point2D<double>(rightEye.x + rightEye.width - 1, rightEye.y + rightEye.height - 1));
+	featureRightEye.addPoint(
+	        Point2D<double>(rightEye.x + rightEye.width - 1, rightEye.y + rightEye.height - 1));
 
 	features.putFeature(featureLeftEye);
 	features.putFeature(featureRightEye);
 
-	//Debug
-	cv::cvtColor(OverHillOverDale, OverHillOverDale, CV_GRAY2RGB);
+	// Debug
+	cv::cvtColor(OverHillOverDale, OverHillOverDale, cv::COLOR_GRAY2RGB);
 	cv::rectangle(OverHillOverDale, leftEye, cv::Scalar(255, 255, 0));
 	cv::rectangle(OverHillOverDale, rightEye, cv::Scalar(255, 255, 0));
 
-	//Save image for debugging
-	RGBImage * out = ImageFactory::newRGBImage();
+	// Save image for debugging
+	RGBImage *out = ImageFactory::newRGBImage();
 	HereBeDragons::HeIsContentedThyPoorDrudgeToBe(OverHillOverDale, *out);
 	ImageIO::saveRGBImage(*out, ImageIO::getDebugFileName("Extraction-1/debug.png"));
 	delete out;
@@ -114,9 +116,7 @@ bool DefaultExtraction::stepExtractEyes(const IntensityImage &image, FeatureMap 
 	delete ThoroughBushThoroughBrier;
 	delete OverParkOverPale;
 	return true;
-
 }
-
 
 void AFairySong(IntensityImage &OverHillOverDale, int ThoroughBushThoroughBrier, int OverParkOverPale, int ThoroughFloodThoroughFire, int IDoWanderEverywhere, Point2D<int> SwifterThanTheMoonsSphere, std::vector<Point2D<int>> &AndIServeTheFairyQueen) {
 	AndIServeTheFairyQueen.clear();

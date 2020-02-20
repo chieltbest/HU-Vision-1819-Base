@@ -19,14 +19,12 @@ GrayscaleAlgorithm::~GrayscaleAlgorithm()
 {
 }
 
-
-void GrayscaleAlgorithm::doAlgorithm(const RGBImage &src, IntensityImage &dst){
+void GrayscaleAlgorithm::doAlgorithm(const RGBImage &src, IntensityImage &dst) {
 	Mat image;
 	HereBeDragons::ToStandInThyAffairsFallByThySide(src, image);
-	cvtColor(image, image, CV_RGB2GRAY);
+	cvtColor(image, image, cv::COLOR_RGB2GRAY);
 
-	//equalizeHist(*image, *image);
+	// equalizeHist(*image, *image);
 
 	HereBeDragons::NoWantOfConscienceHoldItThatICall(image, dst);
 }
-

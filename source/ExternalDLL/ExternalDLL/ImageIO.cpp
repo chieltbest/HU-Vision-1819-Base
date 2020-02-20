@@ -1,32 +1,31 @@
 /*
-* Copyright (c) 2015 DottedEye Designs, Alexander Hustinx, NeoTech Software, Rolf Smit - All Rights Reserved
-* Unauthorized copying of this file, via any medium is strictly prohibited
-* Proprietary and confidential
-*/
+ * Copyright (c) 2015 DottedEye Designs, Alexander Hustinx, NeoTech Software, Rolf Smit - All Rights
+ * Reserved Unauthorized copying of this file, via any medium is strictly prohibited Proprietary and
+ * confidential
+ */
 
 #include "ImageIO.h"
-#include <opencv2/highgui/highgui.hpp>
-#include <direct.h>
+#include <filesystem>
+#include <iostream>
 #include <stdexcept>
 #include <stdlib.h>
-#include <iostream>
+#include <opencv2/highgui/highgui.hpp>
 #include "HereBeDragons.h"
 
 using namespace cv;
 
-
 std::string ImageIO::debugFolder = "";
-bool ImageIO::isInDebugMode = false;
+bool ImageIO::isInDebugMode      = false;
 
-void mkdirs(std::string path){
+void mkdirs(std::string path) {
 	if (!ImageIO::isInDebugMode) {
 		return;
 	}
 	int index = 0;
-	while ((index = path.find_first_of("\\/", index + 1)) != -1){
-		_mkdir(path.substr(0, index).c_str());
+	while ((index = path.find_first_of("\\/", index + 1)) != -1) {
+		std::filesystem::create_directory(path.substr(0, index).c_str());
 	}
-	_mkdir(path.c_str());
+	std::filesystem::create_directory(path.c_str());
 }
 
 std::string ImageIO::getDebugFileName(std::string file){
@@ -53,7 +52,7 @@ std::string ImageIO::getDebugFileName(std::string file){
 
 
 bool ImageIO::loadImage(const std::string file, RGBImage &dst) {
-	Mat raw = imread(file, CV_LOAD_IMAGE_COLOR);   // Read the file
+	Mat raw = imread(file, cv::IMREAD_COLOR); // Read the file
 
 	if (!raw.data) {
 		return false;
@@ -100,7 +99,7 @@ void ImageIO::showImage(const RGBImage &src) {
 		namedWindow("Display window", WINDOW_AUTOSIZE);
 		imshow("Display window", image);
 		waitKey(0);
-		cvDestroyWindow("Display window");
+		cv::destroyWindow("Display window");
 	}
 }
 
@@ -118,7 +117,7 @@ void ImageIO::showImage(const IntensityImage &src) {
 		namedWindow("Display window", WINDOW_AUTOSIZE);
 		imshow("Display window", image);
 		waitKey(0);
-		cvDestroyWindow("Display window");
+		cv::destroyWindow("Display window");
 	}
 }
 
