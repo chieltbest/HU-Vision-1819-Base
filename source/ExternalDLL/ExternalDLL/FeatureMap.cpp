@@ -62,10 +62,9 @@ bool FeatureMap::hasFeature(const int featureId) const {
 	*/
 }
 
-void FeatureMap::putFeature(Feature &feature) {
+void FeatureMap::putFeature(Feature feature) {
 	features[feature.getId()] = feature;
 }
-
 
 Feature & FeatureMap::getFeature(const int featureId) {
 	return features[featureId];

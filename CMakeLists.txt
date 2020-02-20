@@ -17,3 +17,5 @@ option(BUILD_BENCHMARK OFF)
 if (BUILD_BENCHMARK)
 	add_subdirectory(source/benchmark)
 endif ()
+
+add_subdirectory(source)

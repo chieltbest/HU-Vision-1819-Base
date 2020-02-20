@@ -9,49 +9,46 @@
 #include "IntensityImage.h"
 class ImageFactory {
 public:
-
-	static class Implementation {
-		public:
-			virtual RGBImage * newRGBImage(const int width, const int height) const = 0;
-			virtual IntensityImage * newIntensityImage(const int width, const int height) const = 0;
-			virtual RGBImage * newRGBImage() const = 0;
-			virtual IntensityImage * newIntensityImage() const = 0;
-			//virtual ~Implementation();
+	class Implementation {
+	public:
+		virtual RGBImage *newRGBImage(const int width, const int height) const             = 0;
+		virtual IntensityImage *newIntensityImage(const int width, const int height) const = 0;
+		virtual RGBImage *newRGBImage() const                                              = 0;
+		virtual IntensityImage *newIntensityImage() const                                  = 0;
+		// virtual ~Implementation();
 	};
 
-
-	static class ImplementationStudent : public Implementation {
-		public:
-			RGBImage * newRGBImage(const int width, const int height) const;
-			IntensityImage * newIntensityImage(const int width, const int height) const;
-			RGBImage * newRGBImage() const;
-			IntensityImage * newIntensityImage() const;
+	class ImplementationStudent : public Implementation {
+	public:
+		RGBImage *newRGBImage(const int width, const int height) const;
+		IntensityImage *newIntensityImage(const int width, const int height) const;
+		RGBImage *newRGBImage() const;
+		IntensityImage *newIntensityImage() const;
 	};
 
-	static class ImplementationPrivate : public Implementation {
-		public:
-			RGBImage * newRGBImage(const int width, const int height) const;
-			IntensityImage * newIntensityImage(const int width, const int height) const;
-			RGBImage * newRGBImage() const;
-			IntensityImage * newIntensityImage() const;
+	class ImplementationPrivate : public Implementation {
+	public:
+		RGBImage *newRGBImage(const int width, const int height) const;
+		IntensityImage *newIntensityImage(const int width, const int height) const;
+		RGBImage *newRGBImage() const;
+		IntensityImage *newIntensityImage() const;
 	};
 
 	static void setImplementation(ImageFactory::Implementation &implementation);
 
-	static RGBImage * newRGBImage(const int width, const int height);
-	static IntensityImage * newIntensityImage(const int width, const int height);
-	static RGBImage * newRGBImage();
-	static RGBImage * newRGBImage(const RGBImage &other);
-	static IntensityImage * newIntensityImage();
-	static IntensityImage * newIntensityImage(const IntensityImage &other);
-	//rtual ~ImageFactory();
+	static RGBImage *newRGBImage(const int width, const int height);
+	static IntensityImage *newIntensityImage(const int width, const int height);
+	static RGBImage *newRGBImage();
+	static RGBImage *newRGBImage(const RGBImage &other);
+	static IntensityImage *newIntensityImage();
+	static IntensityImage *newIntensityImage(const IntensityImage &other);
+	// rtual ~ImageFactory();
 
-
-	static ImageFactory::Implementation &DEFAULT;
-	static ImageFactory::Implementation &STUDENT;
+	static ImageFactory::ImplementationPrivate DEFAULT;
+	static ImageFactory::ImplementationStudent STUDENT;
 
 private:
-	static ImageFactory::Implementation * implementation;
-	static ImageFactory::Implementation * getImplementation();
+	static ImageFactory::Implementation *implementation;
+	static ImageFactory::Implementation *getImplementation();
 };
 

@@ -73,31 +73,28 @@ IntensityImage * ImageFactory::newIntensityImage(const IntensityImage &other) {
 	return image;
 }
 
-RGBImage * ImageFactory::newRGBImage(const RGBImage &other) {
-	RGBImage * image = ImageFactory::newRGBImage(other.getWidth(), other.getHeight());
-	int size = other.getHeight() * other.getWidth();
+RGBImage *ImageFactory::newRGBImage(const RGBImage &other) {
+	RGBImage *image = ImageFactory::newRGBImage(other.getWidth(), other.getHeight());
+	int size        = other.getHeight() * other.getWidth();
 	for (int i = 0; i < size; i++) {
 		image->setPixel(i, other.getPixel(i));
 	}
 	return image;
 }
 
+ImageFactory::ImplementationPrivate ImageFactory::DEFAULT = ImageFactory::ImplementationPrivate();
+ImageFactory::ImplementationStudent ImageFactory::STUDENT = ImageFactory::ImplementationStudent();
 
-
-ImageFactory::Implementation &ImageFactory::DEFAULT = ImageFactory::ImplementationPrivate();
-ImageFactory::Implementation &ImageFactory::STUDENT = ImageFactory::ImplementationStudent();
-
-
-
-ImageFactory::Implementation * ImageFactory::implementation = NULL;
+ImageFactory::Implementation *ImageFactory::implementation = NULL;
 
 void ImageFactory::setImplementation(ImageFactory::Implementation &implementation) {
 	ImageFactory::implementation = &implementation;
 }
 
-ImageFactory::Implementation * ImageFactory::getImplementation() {
+ImageFactory::Implementation *ImageFactory::getImplementation() {
 	if (!implementation) {
-		throw new std::invalid_argument("The factory methods can not be used because the current Implementation is null!");
+		throw new std::invalid_argument(
+		        "The factory methods can not be used because the current Implementation is null!");
 	}
 	return implementation;
 }
