@@ -22,34 +22,27 @@ void mkdirs(std::string path) {
 		return;
 	}
 	int index = 0;
-	while ((index = path.find_first_of("\\/", index + 1)) != -1) {
+	while ((index = path.find_first_of('/', index + 1)) != -1) {
 		std::filesystem::create_directory(path.substr(0, index).c_str());
 	}
 	std::filesystem::create_directory(path.c_str());
 }
 
-std::string ImageIO::getDebugFileName(std::string file){
-	if (ImageIO::debugFolder.size() == 0 && ImageIO::isInDebugMode == true){
+std::string ImageIO::getDebugFileName(std::string file) {
+	if (ImageIO::debugFolder.size() == 0 && ImageIO::isInDebugMode == true) {
 		throw std::invalid_argument("Debug folder has not been set!");
 	} else if (ImageIO::isInDebugMode != true) {
 		return "";
 	}
 	std::string fullPath = ImageIO::debugFolder;
-	fullPath.append("\\");
+	fullPath.append("/");
 	fullPath.append(file);
-	int index = fullPath.find_last_of("\\/");
-	if (index != -1){
+	int index = fullPath.find_last_of('/');
+	if (index != -1) {
 		mkdirs(fullPath.substr(0, index));
 	}
 	return fullPath;
 }
-
-
-
-
-
-
-
 
 bool ImageIO::loadImage(const std::string file, RGBImage &dst) {
 	Mat raw = imread(file, cv::IMREAD_COLOR); // Read the file
