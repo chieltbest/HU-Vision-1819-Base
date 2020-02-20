@@ -1,4 +1,6 @@
 
+add_subdirectory(week1)
+
 add_executable(main ExternalDLL/ExternalDLL/Main.cpp
 		ExternalDLL/ExternalDLL/DefaultExtraction.cpp
 		ExternalDLL/ExternalDLL/DefaultLocalization.cpp
@@ -31,5 +33,7 @@ message(STATUS "OpenCV library status:")
 message(STATUS "    version: ${OpenCV_VERSION}")
 message(STATUS "    libraries: ${OpenCV_LIBS}")
 message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
+
 target_include_directories(main PUBLIC ${OpenCV_INCLUDE_DIRS})
-target_link_libraries(main ${OpenCV_LIBS})
+target_link_libraries(main ${OpenCV_LIBS} image)
+
