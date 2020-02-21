@@ -8,8 +8,10 @@
 
 #include "../ExternalDLL/ExternalDLL/Image.h"
 
+#include "policy/Null.hpp"
+
 /// shared dynamic Image implementation for Intensity and RGB Image classes
-template <typename ColourType, typename Base>
+template <typename ColourType, typename Base, typename Policy = void>
 class DynamicImage : public Base {
 private:
 	std::unique_ptr<ColourType[]> data;
@@ -42,9 +44,19 @@ public:
 	}
 
 	void setPixel(int x, int y, ColourType pixel) override {
+		if constexpr (!std::is_same_v<Policy, void>) {
+			if (x >= Base::getWidth() || y >= Base::getHeight()) {
+				Policy{}(x, y, Base::getWidth(), Base::getHeight());
+			}
+		}
 		data[x + y * Base::getWidth()] = pixel;
 	}
 	void setPixel(int i, ColourType pixel) override {
+		if constexpr (!std::is_same_v<Policy, void>) {
+			if (i >= total_elems()) {
+				Policy{}(i, total_elems());
+			}
+		}
 		data[i] = pixel;
 	}
 
