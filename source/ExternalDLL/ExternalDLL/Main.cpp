@@ -18,12 +18,12 @@ int main(int argc, char * argv[]) {
 	//	ImageFactory::setImplementation(ImageFactory::DEFAULT);
 	ImageFactory::setImplementation(ImageFactory::STUDENT);
 
-	ImageIO::debugFolder = "testsets/Set A/TestSet Images";
+	ImageIO::debugFolder = "testsets/Set A/TestSet Images/debug";
 	ImageIO::isInDebugMode =
 	        true; // If set to false the ImageIO class will skip any image save function calls
 
 	RGBImage *input = ImageFactory::newRGBImage();
-	if (!ImageIO::loadImage("testsets/Set A/TestSet Images/female-1.png", *input)) {
+	if (!ImageIO::loadImage("testsets/Set A/TestSet Images/child-1.png", *input)) {
 		std::cout << "Image could not be loaded!" << std::endl;
 		//		system("pause");
 		return 0;
@@ -70,44 +70,56 @@ bool executeSteps(DLLExecution * executor) {
 		std::cout << "Pre-processing step 4 failed!" << std::endl;
 		return false;
 	}
-	ImageIO::saveIntensityImage(*executor->resultPreProcessingStep4, ImageIO::getDebugFileName("Pre-processing-4.png"));
+	ImageIO::saveIntensityImage(*executor->resultPreProcessingStep4,
+	                            ImageIO::getDebugFileName("Pre-processing-4.png"));
 
-
-
-	//Execute the localization steps
+	// Execute the localization steps
 	if (!executor->prepareLocalization()) {
 		std::cout << "Localization preparation failed!" << std::endl;
 		return false;
 	}
+
+	ImageIO::saveRGBImage(*executor->localizationDebug,
+	                      ImageIO::getDebugFileName("localization-debug-prep.png"));
 
 	if (!executor->executeLocalizationStep1(false)) {
 		std::cout << "Localization step 1 failed!" << std::endl;
 		return false;
 	}
 
+	ImageIO::saveRGBImage(*executor->localizationDebug,
+	                      ImageIO::getDebugFileName("localization-debug-1.png"));
+
 	if (!executor->executeLocalizationStep2(false)) {
 		std::cout << "Localization step 2 failed!" << std::endl;
 		return false;
 	}
+
+	ImageIO::saveRGBImage(*executor->localizationDebug,
+	                      ImageIO::getDebugFileName("localization-debug-2.png"));
 
 	if (!executor->executeLocalizationStep3(false)) {
 		std::cout << "Localization step 3 failed!" << std::endl;
 		return false;
 	}
 
-	if (!executor->executeLocalizationStep4(false)) {
+	ImageIO::saveRGBImage(*executor->localizationDebug,
+	                      ImageIO::getDebugFileName("localization-debug-3.png"));
+
+	if (!executor->executeLocalizationStep4(true)) {
 		std::cout << "Localization step 4 failed!" << std::endl;
 		return false;
 	}
+
+	ImageIO::saveRGBImage(*executor->localizationDebug,
+	                      ImageIO::getDebugFileName("localization-debug-4.png"));
 
 	if (!executor->executeLocalizationStep5(false)) {
 		std::cout << "Localization step 5 failed!" << std::endl;
 		return false;
 	}
 
-
-
-	//Execute the extraction steps
+	// Execute the extraction steps
 	if (!executor->prepareExtraction()) {
 		std::cout << "Extraction preparation failed!" << std::endl;
 		return false;
@@ -128,14 +140,13 @@ bool executeSteps(DLLExecution * executor) {
 		return false;
 	}
 
-
-	//Post processing and representation
+	// Post processing and representation
 	if (!executor->executePostProcessing()) {
 		std::cout << "Post-processing failed!" << std::endl;
 		return false;
 	}
 
-	drawFeatureDebugImage(*executor->resultPreProcessingStep1, executor->featuresScaled);
+	drawFeatureDebugImage(*executor->resultPreProcessingStep4, executor->featuresScaled);
 
 	if (!executor->executeRepresentation()) {
 		std::cout << "Representation failed!" << std::endl;
