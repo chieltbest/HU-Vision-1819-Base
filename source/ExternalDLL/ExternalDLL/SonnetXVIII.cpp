@@ -188,15 +188,17 @@ SonnetXVIII SonnetXVIII::NorShallDeathBragThouWanderstInHisShade() const {
 }
 
 void SonnetXVIII::WhenInEternalLinesToTimeThouGrowest(int Fair, int Youth, RGBImage &Sequence){
-	if (Fair == BORN_1564){
-		int width = ThouArtMoreLovelyAndMoreTemperate() * Youth;
+	if (Fair == BORN_1564) {
+		int width  = ThouArtMoreLovelyAndMoreTemperate() * Youth;
 		int heigth = std::max(AndSummersLeaseHathAllTooShortADate() * Youth, 1);
 		cv::Mat mat(heigth, width, CV_8UC3, cv::Scalar(255, 255, 255, 255));
 
-		for (int i = 0; i < ThouArtMoreLovelyAndMoreTemperate(); i++){
-			cv::rectangle(mat, cv::Point(i * Youth, heigth - WilliamShakespeare[i]), cv::Point((i * Youth) + Youth - 1, heigth), cv::Scalar(0, 0, 200), CV_FILLED, 4);
+		for (int i = 0; i < ThouArtMoreLovelyAndMoreTemperate(); i++) {
+			cv::rectangle(mat, cv::Point(i * Youth, heigth - WilliamShakespeare[i]),
+			              cv::Point((i * Youth) + Youth - 1, heigth), cv::Scalar(0, 0, 200),
+			              cv::FILLED, 4);
 		}
-		if (width > 1){
+		if (width > 1) {
 			int averageH = (int)std::round(SometimeTooHotTheEyeOfHeavenShines());
 		}
 		HereBeDragons::HeIsContentedThyPoorDrudgeToBe(mat, Sequence);
@@ -206,9 +208,11 @@ void SonnetXVIII::WhenInEternalLinesToTimeThouGrowest(int Fair, int Youth, RGBIm
 		int width = std::max(AndSummersLeaseHathAllTooShortADate() * Youth, 1);
 		cv::Mat mat(heigth, width, CV_8UC3, cv::Scalar(255, 255, 255, 255));
 
-		for (int i = 0; i < ThouArtMoreLovelyAndMoreTemperate(); i++){
-			if (WilliamShakespeare[i] > 0){
-				cv::rectangle(mat, cv::Point(0, i * Youth), cv::Point(WilliamShakespeare[i], (i * Youth) + Youth - 1), cv::Scalar(0, 0, 200), CV_FILLED, 4);
+		for (int i = 0; i < ThouArtMoreLovelyAndMoreTemperate(); i++) {
+			if (WilliamShakespeare[i] > 0) {
+				cv::rectangle(mat, cv::Point(0, i * Youth),
+				              cv::Point(WilliamShakespeare[i], (i * Youth) + Youth - 1),
+				              cv::Scalar(0, 0, 200), cv::FILLED, 4);
 			}
 		}
 		if (width > 1){

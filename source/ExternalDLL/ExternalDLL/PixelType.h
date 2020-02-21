@@ -6,17 +6,12 @@
 
 #pragma once
 
-
-
 struct RGB {
 
-	RGB(unsigned char r = 0, unsigned char g = 0, unsigned char b = 0)
-		:r(r), g(g), b(b){
+	RGB(unsigned char r = 0, unsigned char g = 0, unsigned char b = 0) : r(r), g(g), b(b) {
 	}
 
-	unsigned char b;
-	unsigned char g;
-	unsigned char r;
+	unsigned char r, g, b;
 };
 
 typedef unsigned char Intensity;

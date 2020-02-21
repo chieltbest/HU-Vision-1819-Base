@@ -15,50 +15,36 @@ bool executeSteps(DLLExecution * executor);
 
 int main(int argc, char * argv[]) {
 
-	ImageFactory::setImplementation(ImageFactory::DEFAULT);
-	//ImageFactory::setImplementation(ImageFactory::STUDENT);
+	//	ImageFactory::setImplementation(ImageFactory::DEFAULT);
+	ImageFactory::setImplementation(ImageFactory::STUDENT);
 
+	ImageIO::debugFolder = "testsets/Set A/TestSet Images";
+	ImageIO::isInDebugMode =
+	        true; // If set to false the ImageIO class will skip any image save function calls
 
-	ImageIO::debugFolder = "D:\\Users\\Rolf\\Downloads\\FaceMinMin";
-	ImageIO::isInDebugMode = true; //If set to false the ImageIO class will skip any image save function calls
-
-
-
-
-	RGBImage * input = ImageFactory::newRGBImage();
-	if (!ImageIO::loadImage("D:\\Users\\Rolf\\Downloads\\TestA5.jpg", *input)) {
+	RGBImage *input = ImageFactory::newRGBImage();
+	if (!ImageIO::loadImage("testsets/Set A/TestSet Images/female-1.png", *input)) {
 		std::cout << "Image could not be loaded!" << std::endl;
-		system("pause");
+		//		system("pause");
 		return 0;
 	}
 
-
 	ImageIO::saveRGBImage(*input, ImageIO::getDebugFileName("debug.png"));
 
-	DLLExecution * executor = new DLLExecution(input);
-
+	DLLExecution *executor = new DLLExecution(input);
 
 	if (executeSteps(executor)) {
 		std::cout << "Face recognition successful!" << std::endl;
 		std::cout << "Facial parameters: " << std::endl;
 		for (int i = 0; i < 16; i++) {
-			std::cout << (i+1) << ": " << executor->facialParameters[i] << std::endl;
+			std::cout << (i + 1) << ": " << executor->facialParameters[i] << std::endl;
 		}
 	}
 
 	delete executor;
-	system("pause");
+	//	system("pause");
 	return 1;
 }
-
-
-
-
-
-
-
-
-
 
 bool executeSteps(DLLExecution * executor) {
 

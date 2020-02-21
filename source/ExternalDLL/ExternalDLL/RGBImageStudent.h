@@ -1,25 +1,30 @@
 /*
-* Copyright (c) 2015 DottedEye Designs, Alexander Hustinx, NeoTech Software, Rolf Smit - All Rights Reserved
-* Unauthorized copying of this file, via any medium is strictly prohibited
-* Proprietary and confidential
-*/
+ * Copyright (c) 2015 DottedEye Designs, Alexander Hustinx, NeoTech Software, Rolf Smit - All Rights
+ * Reserved Unauthorized copying of this file, via any medium is strictly prohibited Proprietary and
+ * confidential
+ */
 
 #pragma once
-#include "RGBImage.h"
-class RGBImageStudent : public RGBImage {
-public:
 
+#include "PixelType.h"
+#include "RGBImage.h"
+
+#include <DynamicImage.hpp>
+
+class RGBImageStudent : public DynamicImage<RGB, RGBImage> // the RGB image implementation
+{
+public:
 	RGBImageStudent();
 	RGBImageStudent(const RGBImageStudent &other);
-	RGBImageStudent(const int width, const int height);
-	~RGBImageStudent();
+	RGBImageStudent(int width, int height);
+	~RGBImageStudent() override;
 
-	void set(const int width, const int height);
+	void set(int width, int height) override;
 	void set(const RGBImageStudent &other);
 
-	void setPixel(int x, int y, RGB pixel);
-	void setPixel(int i, RGB pixel);
+	void setPixel(int x, int y, RGB pixel) override;
+	void setPixel(int i, RGB pixel) override;
 
-	RGB getPixel(int x, int y) const;
-	RGB getPixel(int i) const;
+	[[nodiscard]] RGB getPixel(int x, int y) const override;
+	[[nodiscard]] RGB getPixel(int i) const override;
 };
