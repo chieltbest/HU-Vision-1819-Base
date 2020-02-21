@@ -10,9 +10,14 @@
 #include "RGBImage.h"
 
 #include <DynamicImage.hpp>
+#include <policy/ThrowPolicy.hpp>
 
-class RGBImageStudent : public DynamicImage<RGB, RGBImage> // the RGB image implementation
+class RGBImageStudent
+    : public DynamicImage<RGB, RGBImage,
+                          ThrowPolicy<std::out_of_range>> // the RGB image implementation
 {
+	using Base = DynamicImage<RGB, RGBImage, ThrowPolicy<std::out_of_range>>;
+
 public:
 	RGBImageStudent();
 	RGBImageStudent(const RGBImageStudent &other);

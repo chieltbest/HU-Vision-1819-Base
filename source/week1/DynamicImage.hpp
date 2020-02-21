@@ -24,7 +24,7 @@ public:
 	DynamicImage() : data{} {
 	}
 	/// copy constructor
-	DynamicImage(const DynamicImage<ColourType, Base> &other)
+	DynamicImage(const DynamicImage<ColourType, Base, Policy> &other)
 	    : Base{other.getWidth(), other.getHeight()},
 	      data{new ColourType[other.getWidth() * other.getHeight()]} {
 		std::copy(other.data.get(), other.data.get() + total_elems(), data.get());
@@ -36,9 +36,9 @@ public:
 
 	void set(const int width, const int height) override {
 		Base::set(width, height);
-		data = std::make_unique<ColourType[]>(total_elems());
+		data = std::make_unique<ColourType[]>(width * height);
 	}
-	void set(const DynamicImage<ColourType, Base> &other) {
+	void set(const DynamicImage<ColourType, Base, Policy> &other) {
 		set(other.getWidth(), other.getHeight());
 		std::copy(other.data.get(), other.data.get() + total_elems(), data.get());
 	}

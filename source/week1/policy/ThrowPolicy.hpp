@@ -8,7 +8,7 @@ template <typename ExceptionType>
 class ThrowPolicy {
 public:
 	template <typename... Ts>
-	void operator()(Ts &&... ts) {
-		throw ExceptionType{};
+	void operator()(Ts &&...) {
+		throw ExceptionType{"exception"};
 	}
 };
