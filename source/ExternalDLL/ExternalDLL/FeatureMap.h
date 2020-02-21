@@ -19,13 +19,12 @@ public:
 	FeatureMap();
 	~FeatureMap();
 
-
 	void applyScale(double scaleFactor);
 
-	std::map<int, Feature> & getFeatures();
+	std::map<int, Feature> &getFeatures();
 
 	bool hasFeatures(const int featureIds[], const int length) const;
 	bool hasFeature(const int featureId) const;
-	void putFeature(Feature &feature);
-	Feature & getFeature(const int featureId);
+	void putFeature(Feature feature);
+	Feature &getFeature(const int featureId);
 };

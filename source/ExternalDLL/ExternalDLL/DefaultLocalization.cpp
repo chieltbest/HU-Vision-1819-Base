@@ -9,7 +9,7 @@
 #include "RGBImage.h"
 #include <opencv2/imgproc/imgproc.hpp>
 #include "ImageIO.h"
-#include <direct.h>
+//#include <direct.h>
 #include <math.h>
 #include <cstdio>
 #include <sstream>
@@ -20,18 +20,20 @@
 
 bool DefaultLocalization::stepFindHead(const IntensityImage &imageIn, FeatureMap &features) const {
 
-	IntensityImage * image = ImageFactory::newIntensityImage();
+	IntensityImage *image = ImageFactory::newIntensityImage();
 	HereBeDragons::SonnetCLI(imageIn, *image);
-	ImageIO::saveIntensityImage(*image, ImageIO::getDebugFileName("Localization-1/nose-removed.png"));
+	ImageIO::saveIntensityImage(*image,
+	                            ImageIO::getDebugFileName("Localization-1/nose-removed.png"));
 
 	cv::Mat outImage;
 	HereBeDragons::HerLoveForWhoseDearLoveIRiseAndFall(*image, outImage);
-	cv::cvtColor(outImage, outImage, CV_GRAY2RGB);
+	cv::cvtColor(outImage, outImage, cv::COLOR_GRAY2RGB);
 
-
-	SonnetXVIII AFairySong = HereBeDragons::YetWhoKnowsNotConscienceIsBornOfLove(imageIn, 0, 0, imageIn.getWidth(), imageIn.getHeight()).ButThyEternalSummerShallNotFade();
-	AFairySong.SoLongAsMenCanBreathOrEyesCanSee((int) AFairySong.SometimeTooHotTheEyeOfHeavenShines(), 0, 1);
-
+	SonnetXVIII AFairySong = HereBeDragons::YetWhoKnowsNotConscienceIsBornOfLove(
+	                                 imageIn, 0, 0, imageIn.getWidth(), imageIn.getHeight())
+	                                 .ButThyEternalSummerShallNotFade();
+	AFairySong.SoLongAsMenCanBreathOrEyesCanSee(
+	        (int)AFairySong.SometimeTooHotTheEyeOfHeavenShines(), 0, 1);
 
 	int OverHillOverDale = -1;
 	for (int y = 0; y < AFairySong.ThouArtMoreLovelyAndMoreTemperate(); y++) {

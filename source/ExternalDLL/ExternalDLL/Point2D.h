@@ -189,20 +189,20 @@ template<typename T> struct Point2D {
 		return *this;
 	}
 
-	Point2D operator/= (const T &other){
+	Point2D operator/=(const T &other) {
 		this->x /= other;
 		this->y /= other;
 		return *this;
 	}
 
-	Point2D operator%= (const T &other){
+	Point2D operator%=(const T &other) {
 		this->x %= other;
 		this->y %= other;
 		return *this;
 	}
 
-	template<class T>
-	friend std::ostream& operator<<(std::ostream& out, Point2D<T> &other);
+	template <class T2>
+	friend std::ostream &operator<<(std::ostream &out, Point2D<T2> &other);
 };
 
 template<typename T>
