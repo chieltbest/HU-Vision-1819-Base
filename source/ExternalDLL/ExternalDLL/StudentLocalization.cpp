@@ -86,8 +86,10 @@ bool StudentLocalization::stepFindNoseEndsAndEyes(const IntensityImage &image,
 	const unsigned hist_size = nose_size * 2;
 	const int hist_start     = int(nose_bottom.getY()) - nose_size * 3;
 
-	std::vector<unsigned> l_eye_hist{hist_size};
-	std::vector<unsigned> r_eye_hist{hist_size};
+	std::vector<unsigned> l_eye_hist{};
+	std::vector<unsigned> r_eye_hist{};
+	l_eye_hist.resize(hist_size);
+	r_eye_hist.resize(hist_size);
 
 	for (int y = hist_start; y < hist_start + hist_size; ++y) {
 		for (int x = int(nose_bottom.getX()) - nose_size * 2; x < nose_bottom.getX(); ++x) {
