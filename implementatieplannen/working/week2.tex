@@ -1,0 +1,60 @@
+%! Author = chiel
+%! Date = 10-02-20
+
+% Preamble
+\documentclass[11pt]{article}
+
+\title{Implementatieplan Week 2 Lokalisatie Stap 4: Ogen en Neus}
+\author{Chiel Douwes}
+
+% Document
+\begin{document}
+
+    \maketitle
+
+
+    \section{Doel}\label{sec:doel}
+    % Geef aan wat het doel van de implementatie is.
+    De implementatie heeft als doel om de ogen en de neus van de persoon te kunnen lokaliseren.
+
+
+    \section{Methoden}\label{sec:methoden}
+    % Je geeft hier aan welke methoden er zijn, wat de verschillende tussen de methodes zijn.
+    Als methoden kunnen er of een meetkundige methode of een vision processing methode toegepast
+    worden, het nadeel van een meetkundige methode is dat de echte locaties per persoon zullen
+    verschillen, wat niet gereflecteerd wordt.
+    In de vision processing methode wordt handmatig gezocht naar de ogen en de neus, en dit zal
+    dus ook leiden tot betere resultaten.
+
+
+    \section{Keuze}\label{sec:keuze}
+    % Je geeft een onderbouwing over waarom een bepaalde methode is gekozen,
+    % en/of waarom bepaalde settings zijn gebruikt.
+    De keuze is gemaakt om met een vision processing methode de localisatie uit te voeren om de
+    in de Methoden genoemde redenen, naast dat het een beter voorbeeld is naar het invullen van
+    de leerdoelen van de cursus Vision.
+
+
+    \section{Implementatie}\label{sec:implementatie}
+    % Je geeft aan hoe deze keuze is geimplementeerd in de code
+    De implementatie zoekt eerst naar de zijkanten van de neus door vanaf de wangen in rijen naar
+    het midden van het gezicht toe te scannen, waarna uit deze lijst van punten de twee punten
+    worden genomen aan bijde zijden die het verste zijn verwijdert van de middenlijn van het
+    gezicht.
+    Na deze scan worden de ogen op gespoord door eerst een verticaal histogram te maken rondom het
+    gebied van de ogen, en in dit histogram wordt de eerste reeks die boven een zekere threshold
+    zit aangemerkt als de verticale positie van de ogen.
+    Voor de horizontale positie word juist geen gebruik gemaakt van een histogram omdat de
+    neusbrug een obstakel kan zijn in het opsporen van de ogen in het verticale domein;
+    inplaats daarvan wordt er gebruik gemaakt van een meetkundige methode voor de horizontale
+    positie omdat dit een hoog genoege precizie op levert
+
+
+    \section{Evaluatie}\label{sec:evaluatie}
+    % Je geeft aan welke experimenten er gedaan zullen worden om de implementatie
+    % te testen en te ‘bewijzen’ dat de implementatie daadwerkelijk correct werkt.
+    % Dit geeft direct informatie over de meetrapporten die er zullen worden gemaakt.
+    De code zal getest worden door het te integreren in het complete vision systeem, en
+    vervolgens te evalueren of de waardes die daaruit resulteren binnen goede grenzen vallen.
+
+\end{document}
